@@ -58,7 +58,7 @@ public class FaceMaskDetection {
     private static int seed = 123;
     private static double detectionThreshold = 0.5;
     //Set so that nBoxes*(5+nClasses) = odd number
-    private static int nBoxes = 4; //refers to anchor boxes to generate at output layer??
+    private static int nBoxes = 5; //refers to anchor boxes to generate at output layer??
     private static double lambdaNoObj = 0.5;
     private static double lambdaCoord = 5.0;
     //Sets aspect ratio of anchor boxes
@@ -168,7 +168,7 @@ public class FaceMaskDetection {
                     //The convolution layer just before 'outputs'
                     .addLayer("conv2d_23",
                             new ConvolutionLayer.Builder(1, 1)
-                                    .nIn(256) //no. of input channels
+                                    .nIn(1024) //no. of input channels
                                     //Setting here determines the dimensions of the final output CNN
                                     .nOut(nBoxes * (5 + nClasses))
                                     .stride(1, 1)

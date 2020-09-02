@@ -46,11 +46,12 @@ public class FaceMaskInterator {
 
     //For kernel. This also sets shape of output CNN layer
     //gridWidth/height and yoloWidth/height should be the same to give square sections
-    public static final int gridWidth = 4;
-    public static final int gridHeight = 4; //should divide yolowidth and yoloheight without remainder?
+    //must be 32 since the model input is 32 need
+    public static final int gridWidth = 13;
+    public static final int gridHeight = 13; //should divide yolowidth and yoloheight without remainder?
     //For input image to YOLO?? Does it resize?
-    public static final int yolowidth = 200; //next try: 416 400, 384 (384 is max width of training images)
-    public static final int yoloheight = 200;
+    public static final int yolowidth = 416; //next try: 416 400, 384 (384 is max width of training images)
+    public static final int yoloheight = 416;
 
         private static final Logger log = org.slf4j.LoggerFactory.getLogger(FaceMaskInterator.class);
 
