@@ -1,0 +1,26 @@
+<annotation>
+	<folder>Mask</folder>
+	<filename>1067.jpg</filename>
+	<path>C:\Users\Sweet\Desktop\facemask detection\Facemask2\New Masks Dataset\Train\Mask\1067.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>619</width>
+		<height>413</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>withmask</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>316</xmin>
+			<ymin>114</ymin>
+			<xmax>591</xmax>
+			<ymax>361</ymax>
+		</bndbox>
+	</object>
+</annotation>

@@ -1,0 +1,26 @@
+<annotation>
+	<folder>Non Mask</folder>
+	<filename>243.jpg</filename>
+	<path>C:\Users\Sweet\Desktop\facemask detection\Facemask2\New Masks Dataset\Train\Non Mask\243.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>345</width>
+		<height>390</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>no_mask</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>89</xmin>
+			<ymin>72</ymin>
+			<xmax>265</xmax>
+			<ymax>240</ymax>
+		</bndbox>
+	</object>
+</annotation>

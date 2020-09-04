@@ -46,8 +46,7 @@ import java.awt.event.KeyEvent;
 import java.io.File;
 import java.util.List;
 
-import static org.bytedeco.opencv.global.opencv_core.CV_8U;
-import static org.bytedeco.opencv.global.opencv_core.flip;
+import static org.bytedeco.opencv.global.opencv_core.*;
 import static org.bytedeco.opencv.global.opencv_imgproc.*;
 import static org.bytedeco.opencv.global.opencv_imgproc.resize;
 import static org.bytedeco.opencv.helper.opencv_core.RGB;
@@ -72,7 +71,7 @@ public class FaceMaskDetection {
     //lentigo NOS, lichenoid keratosis, melanoma, nevus, and seborrheic keratosis
     //If this changes, adjust nOut of conv2d_23 at getComputationGraph()
     //This ensures output CNN array dimensions matches that of input at conv2d_1
-    private static int nClasses = 3;
+    private static int nClasses = 2;
     private static List<String> labels;
 
     //***Set modelFilename and variable for ComputationGraph***
@@ -80,19 +79,19 @@ public class FaceMaskDetection {
     private static File modelFilename = new File(
             System.getProperty("user.dir"),
             "generated-models/melanomaDetector_yolov2.zip");
-    private static boolean trigger =true;
+    private static boolean trigger =false;
     private static ComputationGraph model;
 
 
     //***Set bounding boxes parameters***
     private static Frame frame = null;
     //Fix the colour map of the bounding boxes
-    private static final Scalar GREEN = RGB(0, 255.0, 0);
-    private static final Scalar YELLOW = RGB(255, 255, 0);
-    private static final Scalar BLUE = RGB(24, 67, 166);
+    private static final Scalar RED = RGB(255, 0, 0);
+    private static final Scalar GREEN = RGB(0, 255, 0);
+    //private static final Scalar BLUE = RGB(24, 67, 166);
 
 
-    private static Scalar[] colormap = {GREEN, YELLOW,BLUE};
+    private static Scalar[] colormap = {RED, GREEN};
     //Will later contain labels for bounding boxes
     private static String labeltext = null;
 
@@ -221,7 +220,7 @@ public class FaceMaskDetection {
                 List<DetectedObject> objs = yout.getPredictedObjects(results, detectionThreshold);
                 YoloUtils.nms(objs, 0.5);
                 Mat mat = imageLoader.asMat(features);
-                mat.convertTo(convertedMat, CV_8U, 255, 0);
+                mat.convertTo(convertedMat, CV_8U , 255, 0);
                 int w = mat.cols() * 2;
                 int h = mat.rows() * 2;
                 resize(convertedMat, convertedMat_big, new Size(w, h));

@@ -12,8 +12,7 @@ import org.nd4j.linalg.dataset.api.preprocessor.ImagePreProcessingScaler;
 import org.slf4j.Logger;
 
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Random;
@@ -47,11 +46,11 @@ public class FaceMaskInterator {
     //For kernel. This also sets shape of output CNN layer
     //gridWidth/height and yoloWidth/height should be the same to give square sections
     //must be 32 since the model input is 32 need
-    public static final int gridWidth = 13;
-    public static final int gridHeight = 13; //should divide yolowidth and yoloheight without remainder?
+    public static final int gridWidth = 4;
+    public static final int gridHeight = 4; //should divide yolowidth and yoloheight without remainder?
     //For input image to YOLO?? Does it resize?
-    public static final int yolowidth = 416; //next try: 416 400, 384 (384 is max width of training images)
-    public static final int yoloheight = 416;
+    public static final int yolowidth = 128; //next try: 416 400, 384 (384 is max width of training images)
+    public static final int yoloheight = 128;
 
         private static final Logger log = org.slf4j.LoggerFactory.getLogger(FaceMaskInterator.class);
 
@@ -88,13 +87,13 @@ public class FaceMaskInterator {
             trainData = new FileSplit(new File(trainDir.toString()), NativeImageLoader.ALLOWED_FORMATS, rng);
             testData = new FileSplit(new File(testDir.toString()),NativeImageLoader.ALLOWED_FORMATS,rng);
         }
-        private static void loadData() throws IOException{
-            //dataDir creates a path of "C:\Users\win10AccountName\.deeplearning4j\data"
+        private static void loadData() throws IOException,FileNotFoundException {
+           // dataDir creates a path of "C:\Users\win10AccountName\.deeplearning4j\data"
             dataDir= Paths.get(
                     System.getProperty("user.home"),
                     GetPropValuesHelper.getPropValues("dl4j_home.data")
             ).toString();
-            parentDir = Paths.get(dataDir,"Facemask").toString();
+            parentDir = Paths.get(dataDir,"Facemaskdetection").toString();
             log.info("Folders containing train and test data located \nat: "+parentDir);
         }
     }
