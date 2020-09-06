@@ -34,8 +34,8 @@
     <version>1.0.0-alpha</version>
 
     <!-- Change freely to describe repo -->
-    <name>Melanoma-Detector</name>
-    <description>Repo: https://github.com/YFLooi/melanomaDetector</description>
+    <name>Face Mask Detector</name>
+    <description>Repo: https://github.com/evanyeohboonkhai/FaceMaskDetector</description>
 
     <properties>
         <!-- Change the nd4j.backend property to nd4j-cuda-*.*-platform example: nd4j-cuda-10.2-platform to use CUDA GPUs -->
@@ -71,7 +71,7 @@
     <!-- Refers to the subfolders of this repo with their own pom.xml
          Weird, why does it leave out dl4j-spark-labs -->
     <modules>
-        <module>melanomaDetector</module>
+        <module>faceMaskDetector</module>
     </modules>
 
     <!-- Maven Enforcer: Ensures user has an up to date version of Maven before building -->

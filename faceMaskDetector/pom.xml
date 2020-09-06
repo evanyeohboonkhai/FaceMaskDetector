@@ -38,10 +38,10 @@
     </parent>
 
     <!-- Change these freely to describe repo -->
-    <name>Melanoma-Detector</name>
-    <description>Image identification of melanoma using YOLO v3</description>
+    <name>face-mask-detector</name>
+    <description>Image identification of face masks using YOLO v3</description>
     <!-- FIXME change it to the project's website -->
-    <url>https://github.com/YFLooi/melanomaDetector</url>
+    <url>https://github.com/evanyeohboonkhai/FaceMaskDetector</url>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

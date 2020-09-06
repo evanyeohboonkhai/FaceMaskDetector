@@ -1,26 +1,4 @@
-/*
- *
- *  * ******************************************************************************
- *  *  * Copyright (c) 2019 Skymind AI Bhd.
- *  *  * Copyright (c) 2020 CertifAI Sdn. Bhd.
- *  *  *
- *  *  * This program and the accompanying materials are made available under the
- *  *  * terms of the Apache License, Version 2.0 which is available at
- *  *  * https://www.apache.org/licenses/LICENSE-2.0.
- *  *  *
- *  *  * Unless required by applicable law or agreed to in writing, software
- *  *  * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- *  *  * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- *  *  * License for the specific language governing permissions and limitations
- *  *  * under the License.
- *  *  *
- *  *  * SPDX-License-Identifier: Apache-2.0
- *  *  *****************************************************************************
- *
- *
- */
-
-package global.melanomaDetector;
+package global.faceMaskDetector;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -30,7 +8,6 @@ import java.nio.file.Paths;
 import java.util.Properties;
 
 public class GetPropValuesHelper {
-
     public static String getPropValues(String property)throws IOException {
         InputStream inputStream = null;
         String value = null;
@@ -39,7 +16,7 @@ public class GetPropValuesHelper {
             Properties prop = new Properties();
             String propFileName = "config.properties";
 
-            inputStream = GetPropValuesHelper.class.getClassLoader().getResourceAsStream(propFileName);
+            inputStream = global.faceMaskDetector.GetPropValuesHelper.class.getClassLoader().getResourceAsStream(propFileName);
 
             if (inputStream != null) {
                 prop.load(inputStream);
