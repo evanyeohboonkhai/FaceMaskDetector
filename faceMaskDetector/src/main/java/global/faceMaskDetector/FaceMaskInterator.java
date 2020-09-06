@@ -9,6 +9,7 @@ import org.datavec.image.recordreader.objdetect.ObjectDetectionRecordReader;
 import org.datavec.image.recordreader.objdetect.impl.VocLabelProvider;
 import org.deeplearning4j.datasets.datavec.RecordReaderDataSetIterator;
 import org.nd4j.linalg.dataset.api.preprocessor.ImagePreProcessingScaler;
+import org.nd4j.linalg.io.ClassPathResource;
 import org.slf4j.Logger;
 
 
@@ -38,7 +39,7 @@ public class FaceMaskInterator {
 
 
     //Random number to initialise FileSplit when it works on trainData and testData
-    private static final int seed = 123;
+    private static final int seed = 136;
     private static Random rng = new Random(seed);
     private static FileSplit trainData, testData;
     private static final int nChannels = 3;
@@ -68,7 +69,6 @@ public class FaceMaskInterator {
             //Other pre-processors: https://deeplearning4j.org/api/latest/org/nd4j/linalg/dataset/api/preprocessor/package-summary.html
             iter.setPreProcessor(new ImagePreProcessingScaler(0,1));
             return iter;
-
         }
         public static RecordReaderDataSetIterator trainIterator(int batchSize) throws Exception{
             return makeIterator(trainData,trainDir,batchSize);
@@ -88,12 +88,15 @@ public class FaceMaskInterator {
             testData = new FileSplit(new File(testDir.toString()),NativeImageLoader.ALLOWED_FORMATS,rng);
         }
         private static void loadData() throws IOException,FileNotFoundException {
-           // dataDir creates a path of "C:\Users\win10AccountName\.deeplearning4j\data"
+            // dataDir creates a path of "C:\Users\win10AccountName\.deeplearning4j\data"
+            /*
             dataDir= Paths.get(
                     System.getProperty("user.home"),
                     GetPropValuesHelper.getPropValues("dl4j_home.data")
             ).toString();
             parentDir = Paths.get(dataDir,"Facemaskdetection").toString();
+            */
+            parentDir = new ClassPathResource("dataset").getFile().toString();
             log.info("Folders containing train and test data located \nat: "+parentDir);
         }
     }
