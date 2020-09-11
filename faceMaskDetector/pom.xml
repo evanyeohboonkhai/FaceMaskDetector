@@ -71,12 +71,21 @@
             <classifier>windows-x86_64-avx2</classifier>
         </dependency>
 
-        <!--Uncomment to enable cudnn-->
-        <!--<dependency>
+        <!--Uncomment to enable cudnn
+        <dependency>
             <groupId>org.deeplearning4j</groupId>
             <artifactId>${dl4j.cuda.backend}</artifactId>
             <version>${dl4j.version}</version>
-        </dependency>-->
+        </dependency>
+        -->
+
+        <!--Uncomment to enable cudnn redist package
+        <dependency>
+            <groupId>org.bytedeco</groupId>
+            <artifactId>cuda-platform-redist</artifactId>
+            <version>10.2-7.6-1.5.3</version>
+        </dependency>
+        -->
 
         <dependency>
             <groupId>org.deeplearning4j</groupId>
@@ -98,10 +107,13 @@
             <version>${dl4j.version}</version>
         </dependency>
 
+
         <!-- For running opencv and ffmpeg libraries -->
+        <!--Note: Use of javacv-platform can cause classPathName to be too long
+        Solve this in IntelliJ by going to Run > Edit Configurations > Shorten Command Line > ClassPath File-->
         <dependency>
             <groupId>org.bytedeco</groupId>
-            <artifactId>javacv</artifactId>
+            <artifactId>javacv-platform</artifactId>
             <version>${javacv.version}</version>
         </dependency>
 
