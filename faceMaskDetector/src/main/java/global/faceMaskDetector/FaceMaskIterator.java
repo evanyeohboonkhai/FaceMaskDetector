@@ -53,8 +53,8 @@ public class FaceMaskIterator {
     //gridWidth/height and yoloWidth/height should be the same to give square sections
     //gridWidth/Height *32 = yolodWidth/height
     //Default: 416*416, for 24*24 grid
-    public static final int gridWidth = 28;
-    public static final int gridHeight = 28;
+    public static final int gridWidth = 8;
+    public static final int gridHeight = 8;
     //For setting size of input image to YOLO model. Does it resize?
     public static final int yolowidth = 256; //next try: 416 400, 384 (384 is max width of training images)
     public static final int yoloheight = 256;

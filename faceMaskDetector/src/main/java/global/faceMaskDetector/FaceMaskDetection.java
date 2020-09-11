@@ -66,7 +66,7 @@ public class FaceMaskDetection {
     private static int seed = 123;
     private static double detectionThreshold = 0.12;
     //Set so that nBoxes*(5+nClasses) = odd number
-    private static int nBoxes = 6; //=number of priorBoxes
+    private static int nBoxes = 5; //=number of priorBoxes
     private static double lambdaNoObj = 0.5;
     private static double lambdaCoord = 5.0;
 
@@ -78,9 +78,9 @@ public class FaceMaskDetection {
      * Current grid: 4X4, for inputs of 720*720. That's a 180*180 grid, for 4px per grid x-y
      * Typical size of masked face in image about 0.5cm*0.5cm to 1cm*1cm
      */
-    //{2,2},{1,2},{2,1}, {5,5},{7,5},{5,7}, {10,10},{15,10},{10,15}, {20,20},{20,25},{25,20}, {50,50},{50,55},{55,50}
-    //{{4,4},{6,6},{8,8},{10,10},{12,12},{14,14}}
-    //{{1, 3}, {2.5, 6}, {3, 4}, {3.5, 8}, {4, 9}, {5, 10}}
+    //My mess: {2,2},{1,2},{2,1}, {5,5},{7,5},{5,7}, {10,10},{15,10},{10,15}, {20,20},{20,25},{25,20}, {50,50},{50,55},{55,50}
+    //From avocado detector: {{1, 3}, {2.5, 6}, {3, 4}, {3.5, 8}, {4, 9}, {5, 10}}
+    //From Evan: {{1, 3}, {1, 5}, {2, 3}, {1, 0.8}, {0.1, 0.5}}
     private static double[][] priorBoxes = {{1, 3}, {1, 5}, {2, 3}, {1, 0.8}, {0.1, 0.5}};
 
     //***Set model run parameters***
@@ -165,10 +165,10 @@ public class FaceMaskDetection {
         }
 
         //STEP 3: Evaluate the model's accuracy by using the test iterator.
-        OfflineValidationWithTestDataset(testIter);
+        //OfflineValidationWithTestDataset(testIter);
 
         //STEP 4: Inference the model and process the webcam stream and make predictions.
-        //videoIdentification();
+        videoIdentification();
         //webcamIdentification();
         //imageBoundingBoxDistanceIdentification();
     }
@@ -267,9 +267,9 @@ public class FaceMaskDetection {
             //Display label text
             labeltext = label + " " + String.format("%.2f", obj.getConfidence() * 100) + "%";
             int[] baseline = {0};
-            Size textSize = getTextSize(labeltext, FONT_HERSHEY_TRIPLEX, 0.32, 1, baseline);
+            Size textSize = getTextSize(labeltext, FONT_HERSHEY_TRIPLEX, 0.96, 1, baseline);
             rectangle(mat, new Point(x1 + 2, y2 - 2), new Point(x1 + 2 + textSize.get(0), y2 - 2 - textSize.get(1)), colormap[obj.getPredictedClass()], FILLED, 0, 0);
-            putText(mat, labeltext, new Point(x1 +1, y2 - 1), FONT_HERSHEY_TRIPLEX,0.32, RGB(0, 0, 0));
+            putText(mat, labeltext, new Point(x1 +1, y2 - 1), FONT_HERSHEY_TRIPLEX,0.96, RGB(0, 0, 0));
         }
         return mat;
     }
@@ -281,8 +281,16 @@ public class FaceMaskDetection {
         int vidYolowidth = 256; //width-height ratio of 1.78 in taken images (ori size: 1280*720)
         int vidYoloheight = 256;
 
-        String videoPath = new ClassPathResource("dataset/crowdImages/vid(13).mp4").getFile().toString();
+        //String videoPath = new ClassPathResource("dataset/crowdImages/vid(13).mp4").getFile().toString();
+        String videoPath = "C:\\Users\\deSni\\.deeplearning4j\\data\\faceMaskDetector\\crowdImages\\Facemaskvid_4xSpeed.mp4";
         FFmpegFrameGrabber grabber = new FFmpegFrameGrabber(videoPath);
+
+        //Sets video playback speed
+        /*
+        grabber.setOption("vf", "fps=30");
+        */
+        grabber.setFrameRate(30);
+
         grabber.setFormat("mp4");
         OpenCVFrameConverter.ToMat converter = new OpenCVFrameConverter.ToMat();
         grabber.start();
@@ -334,17 +342,19 @@ public class FaceMaskDetection {
                 //Display label text
                 labeltext = label + " " + String.format("%.2f", obj.getConfidence() * 100) + "%";
                 int[] baseline = {0};
-                Size textSize = getTextSize(labeltext, FONT_HERSHEY_TRIPLEX, 0.32, 1, baseline);
+                Size textSize = getTextSize(labeltext, FONT_HERSHEY_TRIPLEX, 0.64, 1, baseline);
                 rectangle(rawImage, new Point(x1 + 2, y2 - 2), new Point(x1 + 2 + textSize.get(0), y2 - 2 - textSize.get(1)), colormap[obj.getPredictedClass()], FILLED, 0, 0);
-                putText(rawImage, labeltext, new Point(x1 +1, y2 - 1), FONT_HERSHEY_TRIPLEX,0.32, RGB(0, 0, 0));
+                putText(rawImage, labeltext, new Point(x1 +1, y2 - 1), FONT_HERSHEY_TRIPLEX,0.64, RGB(0, 0, 0));
             }
             canvas.showImage(converter.convert(rawImage));
 
-            KeyEvent t = canvas.waitKey(33);
+            /*
+            //Will set the frame rate of the video??
+            KeyEvent t = canvas.waitKey(300);
 
             if ((t != null) && (t.getKeyCode() == KeyEvent.VK_Q)) {
                 break;
-            }
+            }*/
         }
         canvas.dispose();
     }
@@ -383,7 +393,7 @@ public class FaceMaskDetection {
             e.printStackTrace();
         }
 
-        CanvasFrame canvas = new CanvasFrame("Skin Detection Detection");
+        CanvasFrame canvas = new CanvasFrame("Camera Face Detection");
         int w = grabber.getImageWidth();
         int h = grabber.getImageHeight();
         canvas.setCanvasSize(w, h);
@@ -418,7 +428,7 @@ public class FaceMaskDetection {
                             INDArray outputs = model.outputSingle(inputImage);
                             org.deeplearning4j.nn.layers.objdetect.Yolo2OutputLayer yout = (org.deeplearning4j.nn.layers.objdetect.Yolo2OutputLayer) model.getOutputLayer(0);
                             List<DetectedObject> objs = yout.getPredictedObjects(outputs, detectionThreshold);
-                            YoloUtils.nms(objs, 0.4);
+                            YoloUtils.nms(objs, 0.6);
                             rawImage = drawResults(objs, rawImage, w, h);
                             canvas.showImage(converter.convert(rawImage));
                         } catch (Exception e) {

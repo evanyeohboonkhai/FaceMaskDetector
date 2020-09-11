@@ -52,7 +52,10 @@
         <dl4j.version>1.0.0-beta6</dl4j.version>
         <datavec.version>1.0.0-beta6</datavec.version>
 
+        <!--Problem with v1.5.2: grabber.setFrameRate() does not work with FFmpegFrameGrabber-->
+        <!--Issue with using javacv >1.2.0 with ffmpeg video decoding: https://github.com/bytedeco/javacv/issues/818  -->
         <javacv.version>1.5.2</javacv.version>
+
         <zip4j.version>2.2.6</zip4j.version>
         <slf4j.version>2.0.0-alpha1</slf4j.version>
         <httpclient.version>4.5.12</httpclient.version>
