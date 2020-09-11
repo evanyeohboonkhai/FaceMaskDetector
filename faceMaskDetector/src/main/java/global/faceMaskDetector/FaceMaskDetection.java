@@ -78,14 +78,15 @@ public class FaceMaskDetection {
      * Current grid: 4X4, for inputs of 720*720. That's a 180*180 grid, for 4px per grid x-y
      * Typical size of masked face in image about 0.5cm*0.5cm to 1cm*1cm
      */
-    //My mess: {2,2},{1,2},{2,1}, {5,5},{7,5},{5,7}, {10,10},{15,10},{10,15}, {20,20},{20,25},{25,20}, {50,50},{50,55},{55,50}
+    //Note: None of these will work if input video is not square (width = height)
+    //My mess. Works best on video: {2,2},{1,2},{2,1}, {5,5},{7,5},{5,7}, {10,10},{15,10},{10,15}, {20,20},{20,25},{25,20}, {50,50},{50,55},{55,50}
     //From avocado detector: {{1, 3}, {2.5, 6}, {3, 4}, {3.5, 8}, {4, 9}, {5, 10}}
-    //From Evan: {{1, 3}, {1, 5}, {2, 3}, {1, 0.8}, {0.1, 0.5}}
-    private static double[][] priorBoxes = {{1, 3}, {1, 5}, {2, 3}, {1, 0.8}, {0.1, 0.5}};
+    //From Evan. Works best on images: {{1, 3}, {1, 5}, {2, 3}, {1, 0.8}, {0.1, 0.5}}
+    private static double[][] priorBoxes = {{2,2},{1,2},{2,1}, {5,5},{7,5},{5,7}, {10,10},{15,10},{10,15}, {20,20},{20,25},{25,20}, {50,50},{50,55},{55,50}};
 
     //***Set model run parameters***
     private static int batchSize = 10;
-    private static int nEpochs = 5; //ori: 20. 60 iterations = 1 epoch. 9 max before no improvement
+    private static int nEpochs = 8; //ori: 20. 60 iterations = 1 epoch. 9 max before no improvement
     private static double learningRate = 1e-4;
 
     //2 output classes: Mask, non mask
@@ -96,7 +97,7 @@ public class FaceMaskDetection {
     //Refers to C:\devBox\FaceMaskDetector\generated-models
     private static File modelFilename = new File(
             System.getProperty("user.dir"),
-            "generated-models/faceMaskDetector_yolov2.zip");
+            "generated-models/15PriorBoxes_sameSizeTrainImgs/faceMaskDetector_yolov2.zip");
     private static boolean trigger =false;
     private static ComputationGraph model;
 
