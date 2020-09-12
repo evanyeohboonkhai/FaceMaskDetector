@@ -95,9 +95,10 @@ public class FaceMaskDetection {
 
     //***Set modelFilename and variable for ComputationGraph***
     //Refers to C:\devBox\FaceMaskDetector\generated-models
+    //Models available: withEvansPriorBoxes, 15PriorBoxes_sameSizeTrainImgs
     private static File modelFilename = new File(
             System.getProperty("user.dir"),
-            "generated-models/15PriorBoxes_sameSizeTrainImgs/faceMaskDetector_yolov2.zip");
+            "generated-models/withEvansPriorBoxes/faceMaskDetector_yolov2.zip");
     private static boolean trigger =false;
     private static ComputationGraph model;
 
@@ -169,8 +170,8 @@ public class FaceMaskDetection {
         //OfflineValidationWithTestDataset(testIter);
 
         //STEP 4: Inference the model and process the webcam stream and make predictions.
-        videoIdentification();
-        //webcamIdentification();
+        //videoIdentification();
+        webcamIdentification();
         //imageBoundingBoxDistanceIdentification();
     }
 
