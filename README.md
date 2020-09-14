@@ -12,7 +12,7 @@ into C:\Users\YourWindowsAccountName\.deeplearning4j\models
 3. Images labelled using PascalVOC. Place this in C:\Users\YourWindowsAccountName\.deeplearning4j\data\faceMaskDetector
 <br/>
 Start up the program from FaceMaskDetection.java in IntelliJ by right-clicking in the view window and clicking "Run"<br/>
-![runInstruction](runInstruction.jpg) <br/>
+![run instruction](runInstruction.jpg .jpg) <br/>
 
 # Data source:
 https://www.kaggle.com/andrewmvd/face-mask-detection
